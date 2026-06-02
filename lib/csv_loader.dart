@@ -9,8 +9,7 @@ import 'app_state.dart';
 // REMOTE CSV CONFIG
 // ─────────────────────────────────────────────────────────────────
 const String _baseUrl =
-    'https://raw.githubusercontent.com/novernmanagement-coder/SafePrep_Content/main';
-
+    'https://raw.githubusercontent.com/novernmanagement-coder/SafePrep_Espanol/main/Assets';
 const String _versionUrl = '$_baseUrl/version.json';
 
 const List<String> _remoteFiles = [
