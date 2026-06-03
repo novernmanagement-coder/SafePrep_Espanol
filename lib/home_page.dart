@@ -731,48 +731,6 @@ class _HomePageState extends State<HomePage> {
       child: Column(
         spacing: 2,
         children: [
-          if (state.canUpgradeToLifetime) ...[
-            GestureDetector(
-              onTap: () async {
-                final result = await IAPService.instance.buyUpgrade();
-                if (result != IAPResult.initiated && mounted) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(result.userMessage ?? 'Algo salió mal.'),
-                    ),
-                  );
-                }
-              },
-              child: Container(
-                width: double.infinity,
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 8,
-                ),
-                margin: const EdgeInsets.only(bottom: 8),
-                decoration: BoxDecoration(
-                  color: const Color(0xFF2A1F00),
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: const Color(0xFFF0C575)),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text('⭐', style: TextStyle(fontSize: 14)),
-                    const SizedBox(width: 8),
-                    Text(
-                      'Actualizar a Vitalicio — ${IAPService.instance.upgradePrice}',
-                      style: const TextStyle(
-                        color: Color(0xFFF0C575),
-                        fontSize: 12,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
           if (state.isLifetime)
             Padding(
               padding: const EdgeInsets.only(bottom: 6),

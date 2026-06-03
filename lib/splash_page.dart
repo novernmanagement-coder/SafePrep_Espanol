@@ -6,7 +6,7 @@ import 'home_page.dart';
 import 'intro_page.dart';
 import 'preview/preview_cinematic_splash.dart';
 
-// BUILD 26 — version 1.3.1+26 — Full page curriculum, navigation fix, fresh dashboard on first load
+// BUILD 2 — version 1.1 — Full page curriculum, navigation fix, fresh dashboard on first load
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
 
@@ -103,7 +103,7 @@ class _SplashPageState extends State<SplashPage> {
               'Diseñado para ti en cada detalle.',
               style: TextStyle(
                 color: Color(0xFFD4AF37),
-                fontSize: 18,
+                fontSize: 14,
                 fontWeight: FontWeight.w500,
                 letterSpacing: 0.5,
                 fontStyle: FontStyle.italic,

@@ -1,123 +1,123 @@
 ID,Category,Fact
-1,Time & Temperature,The temperature danger zone for TCS food is between 41°F and 135°F.
-2,Time & Temperature,TCS food must be cooled from 135°F to 70°F within 2 hours.
-3,Time & Temperature,After reaching 70°F food must continue cooling to 41°F within 4 more hours.
-4,Time & Temperature,The total cooling window for TCS food is 6 hours from 135°F to 41°F.
-5,Time & Temperature,Hot TCS food must be held at 135°F or above at all times.
-6,Time & Temperature,Cold TCS food must be held at 41°F or below at all times.
-7,Time & Temperature,Poultry must reach a minimum internal cooking temperature of 165°F for 15 seconds.
-8,Time & Temperature,Ground meat must reach a minimum internal cooking temperature of 155°F for 15 seconds.
-9,Time & Temperature,Whole muscle beef pork and seafood must reach 145°F for 15 seconds.
-10,Time & Temperature,All TCS food reheated for service must reach 165°F for 15 seconds.
-11,Time & Temperature,Food reheated in a microwave must reach 165°F and rest covered for 2 minutes.
-12,Time & Temperature,Stuffed meats and stuffed poultry must reach 165°F because the stuffing contacts raw proteins.
-13,Time & Temperature,Ready-to-eat TCS food held at 41°F or below may be kept for a maximum of 7 days.
-14,Time & Temperature,TCS food that has been in the danger zone for more than 4 cumulative hours must be discarded.
-15,Time & Temperature,Shallow pans ice baths and blast chillers are all approved methods for rapid cooling.
-16,Cross-Contamination,Cross-contamination occurs when pathogens are transferred from one food or surface to another.
-17,Cross-Contamination,Raw poultry must always be stored on the lowest shelf in a cooler.
-18,Cross-Contamination,Foods in a cooler are stored from top to bottom by minimum required cooking temperature.
-19,Cross-Contamination,Ready-to-eat food must always be stored above all raw proteins in a refrigerator.
-20,Cross-Contamination,Cross-contact refers specifically to the transfer of allergen proteins from one food to another.
-21,Cross-Contamination,Even a trace amount of an allergen can trigger a life-threatening reaction in a sensitive individual.
-22,Cross-Contamination,The nine major food allergens are milk eggs fish shellfish tree nuts peanuts wheat soybeans and sesame.
-23,Cross-Contamination,Dedicated color-coded cutting boards help prevent cross-contamination between different food types.
-24,Cross-Contamination,Gloves must be changed and hands must be washed when switching between raw and ready-to-eat foods.
-25,Cross-Contamination,Food-contact surfaces must be cleaned and sanitized immediately after contact with a raw protein.
-26,Cross-Contamination,Allergen-free meals must be prepared first or on completely separate equipment to prevent cross-contact.
-27,Cross-Contamination,A food slicer used continuously must be cleaned and sanitized every 4 hours.
-28,Cross-Contamination,Chemicals must always be stored in original labeled containers away from all food and equipment.
-29,Personal Hygiene,Food handlers must wash their hands for a minimum of 20 seconds using soap and warm water.
-30,Personal Hygiene,Hands must be washed after using the restroom handling raw meat touching the face and handling garbage.
-31,Personal Hygiene,Hand sanitizer may only be used after proper handwashing — it is a supplement not a substitute.
-32,Personal Hygiene,Handwashing must occur at a designated handwashing sink only — never in a prep or dish sink.
-33,Personal Hygiene,Water for handwashing must be at a minimum temperature of 100°F.
-34,Personal Hygiene,Hands must be dried with a single-use paper towel or air dryer after washing.
-35,Personal Hygiene,A plain band ring is the only jewelry permitted for food handlers.
-36,Personal Hygiene,Fingernails must be kept short clean and unpolished to prevent harboring pathogens.
-37,Personal Hygiene,A food handler with vomiting or diarrhea must be excluded from the operation immediately.
-38,Personal Hygiene,The five reportable illnesses in food service are Norovirus Hepatitis A Salmonella Typhi Shigella and E. coli O157:H7.
-39,Personal Hygiene,Jaundice is a symptom of Hepatitis A and requires immediate exclusion and reporting to the regulatory authority.
-40,Personal Hygiene,An infected wound on the hand must be covered with a bandage and protected with a single-use glove.
-41,Personal Hygiene,Food handlers may drink in food prep areas only from a covered container with a straw.
-42,Receiving & Storage,Cold TCS food must be received at 41°F or below.
-43,Receiving & Storage,Shell eggs and shucked shellfish may be received at 45°F or below.
-44,Receiving & Storage,Live shellfish must be received at an air temperature of 45°F or below.
-45,Receiving & Storage,Hot TCS food received during a hot delivery must arrive at 135°F or above.
-46,Receiving & Storage,Frozen food must be received completely solid with no signs of thawing or refreezing.
-47,Receiving & Storage,Dented swollen rusted or leaking canned goods must always be rejected at receiving.
-48,Receiving & Storage,Shellfish tags must be kept on file for 90 days from the date the last shellfish was sold.
-49,Receiving & Storage,The FIFO method — First In First Out — ensures older stock is used before newer stock.
-50,Receiving & Storage,Dry goods must be stored at least 6 inches off the floor to allow cleaning and deter pests.
-51,Receiving & Storage,Raw chicken must be stored on the lowest shelf of any refrigerator or walk-in cooler.
-52,Receiving & Storage,Ready-to-eat fruit and cooked food must be stored on the top shelf above all raw proteins.
-53,Receiving & Storage,Large ice crystals on frozen food indicate it thawed and refroze during transport and must be rejected.
-54,Receiving & Storage,Refrigerators holding TCS food must maintain a temperature of 41°F or below at all times.
-55,Receiving & Storage,A delivery that arrives with tampered or broken packaging must be rejected regardless of temperature.
-56,Food Preparation,The four approved thawing methods are refrigeration running cold water microwave and cooking from frozen.
-57,Food Preparation,Food thawed in a microwave must be cooked immediately after thawing.
-58,Food Preparation,Food thawed under running water must be kept under water at 70°F or below.
-59,Food Preparation,Produce must be washed under cool running water before cutting peeling or cooking.
-60,Food Preparation,Ice must always be handled with a scoop — never with bare hands or a glass.
-61,Food Preparation,Separate utensils must be used for raw proteins and ready-to-eat foods to prevent cross-contamination.
-62,Food Preparation,Food contaminated by chemicals glass or other physical hazards must be discarded immediately.
-63,Food Preparation,Partial cooking must be limited to no more than 60 minutes before the food is finished cooking.
-64,Food Preparation,Whole muscle beef roasts may be cooked to 145°F but must be held at that temperature for 4 minutes.
-65,Food Preparation,Time-temperature abused food must be discarded — reheating or chilling does not make it safe again.
-66,Cleaning & Sanitizing,Cleaning removes dirt and organic matter while sanitizing reduces pathogens to safe levels.
-67,Cleaning & Sanitizing,A surface must always be cleaned before it can be effectively sanitized.
-68,Cleaning & Sanitizing,The correct order for a three-compartment sink is wash rinse sanitize and air-dry.
-69,Cleaning & Sanitizing,The wash compartment of a three-compartment sink must be at least 110°F.
-70,Cleaning & Sanitizing,Chlorine sanitizer must be maintained between 50 and 99 ppm to be effective and safe.
-71,Cleaning & Sanitizing,Iodine sanitizer must be maintained between 12.5 and 25 ppm.
-72,Cleaning & Sanitizing,Quaternary ammonium sanitizer concentration must follow the manufacturer's instructions.
-73,Cleaning & Sanitizing,Food-contact surfaces in continuous use must be cleaned and sanitized at least every 4 hours.
-74,Cleaning & Sanitizing,Sanitized equipment must always be allowed to air-dry — never dried with a towel.
-75,Cleaning & Sanitizing,A high-temperature dish machine must reach 180°F on the surface of dishes during the final rinse.
-76,Cleaning & Sanitizing,A low-temperature dish machine relies on chemical sanitizer and requires a minimum rinse of 120°F.
-77,Cleaning & Sanitizing,Wiping cloths must be stored in sanitizing solution between uses — never in plain water.
-78,Cleaning & Sanitizing,Test strips must be used to verify sanitizer concentration — always check the strip expiration date first.
-79,Cleaning & Sanitizing,A cutting board with deep knife scars cannot be effectively sanitized and must be replaced.
-80,Cleaning & Sanitizing,Ice machines must be cleaned regularly per manufacturer instructions to prevent mold and bacterial buildup.
-81,Facility & Equipment,Handwashing sinks must be used for handwashing only — never for food prep or equipment rinsing.
-82,Facility & Equipment,Every handwashing sink must be stocked with soap single-use towels and a waste bin at all times.
-83,Facility & Equipment,A handwashing sink must provide running water at a minimum temperature of 100°F.
-84,Facility & Equipment,A handwashing reminder sign must be posted at every handwashing sink.
-85,Facility & Equipment,Floor-mounted equipment must be elevated at least 6 inches off the floor to allow cleaning underneath.
-86,Facility & Equipment,Light fixtures in food prep areas must have shatter-resistant covers to prevent glass contamination.
-87,Facility & Equipment,Adequate lighting in a walk-in cooler allows staff to read labels check dates and identify spoilage.
-88,Facility & Equipment,A backed-up drain in a food prep area is an immediate health hazard — food prep must stop.
-89,Facility & Equipment,Garbage containers in food prep areas must have tight-fitting lids to deter pests.
-90,Facility & Equipment,A backflow prevention device stops contaminated water from reversing into the potable water supply.
-91,Pest Management,The most effective pest prevention strategy is eliminating food water and shelter sources.
-92,Pest Management,All gaps cracks and openings in exterior walls floors and doors must be sealed to prevent pest entry.
-93,Pest Management,Self-closing doors and door sweeps work together to prevent pests from entering through exterior doors.
-94,Pest Management,Window screens must be tight-fitting and in good repair in any food prep area with operable windows.
-95,Pest Management,Droppings nesting materials and gnaw marks are the most common early signs of a pest infestation.
-96,Pest Management,Only a licensed pest control operator may apply pesticides in a food service facility.
-97,Pest Management,Cardboard boxes provide ideal harborage for cockroaches and must be removed from the facility promptly.
-98,Pest Management,Cockroach infestations often produce a distinctive musty oily odor in addition to visible droppings.
-99,Pest Management,Rodents can enter through a gap as small as a dime — all openings must be sealed regardless of size.
-100,Pest Management,Fruit flies breed in floor drains and drain pans — keeping these clean eliminates their breeding sites.
-101,Pest Management,Fly light traps must be positioned away from food to prevent dead insects from falling into food.
-102,Pest Management,Pest control inspection reports must be reviewed after each visit and findings acted upon promptly.
-103,Food Safety Management,The person in charge must be present and knowledgeable about food safety at all times during operation.
-104,Food Safety Management,Active managerial control means identifying and correcting food safety risks before they cause illness.
-105,Food Safety Management,HACCP stands for Hazard Analysis Critical Control Points.
-106,Food Safety Management,The three types of food safety hazards are biological chemical and physical.
-107,Food Safety Management,A critical control point is a step in food handling where a hazard can be prevented eliminated or reduced.
-108,Food Safety Management,When a critical control point is not met corrective action must be taken immediately.
-109,Food Safety Management,Food safety records provide written proof that monitoring and corrective actions were performed.
-110,Food Safety Management,A food recall requires the immediate removal of affected product from service.
-111,Food Safety Management,Multiple employees reporting stomach illness on the same day may indicate a foodborne illness outbreak.
-112,Food Safety Management,The difference between restriction and exclusion is that restriction limits duties while exclusion removes the food handler entirely.
-113,General,Foodborne illness affects an estimated 48 million Americans every year.
-114,General,The top five risk factors for foodborne illness are improper holding temperatures inadequate cooking poor personal hygiene contaminated equipment and unsafe food sources.
-115,General,Most foodborne illnesses are preventable with consistent application of basic food safety practices.
-116,General,Norovirus is the most common cause of foodborne illness in the United States.
-117,General,Bacteria multiply most rapidly between 70°F and 125°F — the middle of the temperature danger zone.
-118,General,Under ideal conditions a single bacterium can multiply to over one million in just 10 hours.
-119,General,TCS stands for Temperature Control for Safety.
-120,General,The ServSafe exam consists of 90 questions and requires a score of 75% or higher to pass.
-121,General,A food safety culture starts with management — when managers take food safety seriously staff follow.
-122,General,When in doubt throw it out — the cost of discarding food is always less than the cost of a foodborne illness outbreak.
+1,Time & Temperature,La zona de peligro de temperatura para alimentos TCS está entre 41°F y 135°F.
+2,Time & Temperature,Los alimentos TCS deben enfriarse de 135°F a 70°F en 2 horas.
+3,Time & Temperature,"Al alcanzar 70°F, el alimento debe continuar enfriándose a 41°F en 4 horas más."
+4,Time & Temperature,La ventana total de enfriamiento para alimentos TCS es de 6 horas de 135°F a 41°F.
+5,Time & Temperature,Los alimentos TCS calientes deben mantenerse a 135°F o más en todo momento.
+6,Time & Temperature,Los alimentos TCS fríos deben mantenerse a 41°F o menos en todo momento.
+7,Time & Temperature,Las aves de corral deben alcanzar una temperatura interna mínima de cocción de 165°F por 15 segundos.
+8,Time & Temperature,La carne molida debe alcanzar una temperatura interna mínima de cocción de 155°F por 15 segundos.
+9,Time & Temperature,"La carne de res entera, cerdo y mariscos deben alcanzar 145°F por 15 segundos."
+10,Time & Temperature,Todos los alimentos TCS recalentados para servicio deben alcanzar 165°F por 15 segundos.
+11,Time & Temperature,El alimento recalentado en microondas debe alcanzar 165°F y reposar tapado por 2 minutos.
+12,Time & Temperature,Las carnes rellenas y aves rellenas deben alcanzar 165°F porque el relleno contacta proteínas crudas.
+13,Time & Temperature,Los alimentos TCS listos para comer mantenidos a 41°F o menos pueden conservarse un máximo de 7 días.
+14,Time & Temperature,Los alimentos TCS que han estado en la zona de peligro más de 4 horas acumuladas deben desecharse.
+15,Time & Temperature,"Las bandejas poco profundas, baños de hielo y enfriadores de ráfaga son métodos aprobados de enfriamiento rápido."
+16,Cross-Contamination,La contaminación cruzada ocurre cuando los patógenos se transfieren de un alimento o superficie a otro.
+17,Cross-Contamination,Las aves de corral crudas siempre deben almacenarse en el estante más bajo del enfriador.
+18,Cross-Contamination,Los alimentos en el enfriador se almacenan de arriba a abajo según la temperatura mínima de cocción requerida.
+19,Cross-Contamination,Los alimentos listos para comer siempre deben almacenarse por encima de todas las proteínas crudas en el refrigerador.
+20,Cross-Contamination,El contacto cruzado se refiere específicamente a la transferencia de proteínas alérgenas de un alimento a otro.
+21,Cross-Contamination,Incluso una cantidad mínima de un alérgeno puede desencadenar una reacción potencialmente mortal en una persona sensible.
+22,Cross-Contamination,"Los nueve alérgenos alimentarios principales son leche, huevos, pescado, mariscos, nueces de árbol, cacahuates, trigo, soya y sésamo."
+23,Cross-Contamination,Las tablas de cortar codificadas por colores ayudan a prevenir la contaminación cruzada entre diferentes tipos de alimentos.
+24,Cross-Contamination,Los guantes deben cambiarse y las manos lavarse al cambiar entre alimentos crudos y listos para comer.
+25,Cross-Contamination,Las superficies de contacto con alimentos deben limpiarse y sanitizarse inmediatamente después del contacto con una proteína cruda.
+26,Cross-Contamination,Las comidas sin alérgenos deben prepararse primero o en equipo completamente separado para evitar el contacto cruzado.
+27,Cross-Contamination,Una rebanadora de alimentos en uso continuo debe limpiarse y sanitizarse cada 4 horas.
+28,Cross-Contamination,"Los productos químicos siempre deben almacenarse en recipientes originales etiquetados, lejos de todos los alimentos y equipos."
+29,Personal Hygiene,Los manipuladores de alimentos deben lavarse las manos durante un mínimo de 20 segundos con jabón y agua tibia.
+30,Personal Hygiene,"Las manos deben lavarse después de usar el baño, manipular carne cruda, tocarse la cara y manejar basura."
+31,Personal Hygiene,"El sanitizante de manos solo puede usarse después del lavado de manos adecuado — es un complemento, no un sustituto."
+32,Personal Hygiene,El lavado de manos debe realizarse solo en el lavamanos designado — nunca en un fregadero de preparación o de platos.
+33,Personal Hygiene,El agua para el lavado de manos debe estar a una temperatura mínima de 100°F.
+34,Personal Hygiene,Las manos deben secarse con una toalla de papel de un solo uso o secador de aire después del lavado.
+35,Personal Hygiene,Un anillo de banda simple es la única joyería permitida para los manipuladores de alimentos.
+36,Personal Hygiene,"Las uñas deben mantenerse cortas, limpias y sin esmalte para evitar albergar patógenos."
+37,Personal Hygiene,Un manipulador de alimentos con vómitos o diarrea debe ser excluido de la operación de inmediato.
+38,Personal Hygiene,"Las cinco enfermedades de notificación obligatoria en el servicio de alimentos son Norovirus, Hepatitis A, Salmonella Typhi, Shigella y E. coli O157:H7."
+39,Personal Hygiene,La ictericia es un síntoma de Hepatitis A y requiere exclusión inmediata y notificación a la autoridad regulatoria.
+40,Personal Hygiene,Una herida infectada en la mano debe cubrirse con un vendaje y protegerse con un guante de un solo uso.
+41,Personal Hygiene,Los manipuladores de alimentos solo pueden beber en áreas de preparación de alimentos desde un recipiente tapado con pajilla.
+42,Receiving & Storage,Los alimentos TCS fríos deben recibirse a 41°F o menos.
+43,Receiving & Storage,Los huevos con cáscara y los mariscos sin concha pueden recibirse a 45°F o menos.
+44,Receiving & Storage,Los mariscos vivos deben recibirse a una temperatura de aire de 45°F o menos.
+45,Receiving & Storage,Los alimentos TCS calientes recibidos en una entrega caliente deben llegar a 135°F o más.
+46,Receiving & Storage,Los alimentos congelados deben recibirse completamente sólidos sin señales de descongelación o recongelación.
+47,Receiving & Storage,"Las conservas abolladas, hinchadas, oxidadas o que gotean siempre deben rechazarse en la recepción."
+48,Receiving & Storage,Las etiquetas de mariscos deben conservarse archivadas durante 90 días desde la fecha en que se vendió el último marisco.
+49,Receiving & Storage,El método PEPS — Primero en Entrar Primero en Salir — garantiza que el stock más antiguo se use antes que el nuevo.
+50,Receiving & Storage,Los productos secos deben almacenarse al menos 15 cm del suelo para permitir la limpieza y disuadir plagas.
+51,Receiving & Storage,El pollo crudo debe almacenarse en el estante más bajo de cualquier refrigerador o cuarto frío.
+52,Receiving & Storage,Las frutas listas para comer y los alimentos cocinados deben almacenarse en el estante superior por encima de todas las proteínas crudas.
+53,Receiving & Storage,Los grandes cristales de hielo en alimentos congelados indican que se descongelaron y recongelaron durante el transporte y deben rechazarse.
+54,Receiving & Storage,Los refrigeradores que contienen alimentos TCS deben mantener una temperatura de 41°F o menos en todo momento.
+55,Receiving & Storage,Una entrega que llega con empaque adulterado o roto debe rechazarse independientemente de la temperatura.
+56,Food Preparation,"Los cuatro métodos de descongelación aprobados son refrigeración, agua fría corriente, microondas y cocción desde congelado."
+57,Food Preparation,El alimento descongelado en microondas debe cocinarse inmediatamente después de la descongelación.
+58,Food Preparation,El alimento descongelado bajo agua corriente debe mantenerse bajo agua a 70°F o menos.
+59,Food Preparation,"Los productos frescos deben lavarse bajo agua fría corriente antes de cortar, pelar o cocinar."
+60,Food Preparation,El hielo siempre debe manejarse con una cuchara — nunca con las manos descubiertas o un vaso.
+61,Food Preparation,Deben usarse utensilios separados para proteínas crudas y alimentos listos para comer para prevenir la contaminación cruzada.
+62,Food Preparation,"Los alimentos contaminados por productos químicos, vidrio u otros peligros físicos deben desecharse de inmediato."
+63,Food Preparation,La cocción parcial debe limitarse a no más de 60 minutos antes de terminar la cocción del alimento.
+64,Food Preparation,Los asados de carne de res entera pueden cocinarse a 145°F pero deben mantenerse a esa temperatura por 4 minutos.
+65,Food Preparation,El alimento con abuso de tiempo-temperatura debe desecharse — recalentarlo o enfriarlo no lo hace seguro nuevamente.
+66,Cleaning & Sanitizing,La limpieza elimina suciedad y materia orgánica mientras que la sanitización reduce los patógenos a niveles seguros.
+67,Cleaning & Sanitizing,Una superficie siempre debe limpiarse antes de poder sanitizarse efectivamente.
+68,Cleaning & Sanitizing,"El orden correcto para un fregadero de tres compartimentos es lavar, enjuagar, sanitizar y secar al aire."
+69,Cleaning & Sanitizing,El compartimento de lavado de un fregadero de tres compartimentos debe estar al menos a 110°F.
+70,Cleaning & Sanitizing,El sanitizante de cloro debe mantenerse entre 50 y 99 ppm para ser efectivo y seguro.
+71,Cleaning & Sanitizing,El sanitizante de yodo debe mantenerse entre 12.5 y 25 ppm.
+72,Cleaning & Sanitizing,La concentración del sanitizante de amonio cuaternario debe seguir las instrucciones del fabricante.
+73,Cleaning & Sanitizing,Las superficies de contacto con alimentos en uso continuo deben limpiarse y sanitizarse al menos cada 4 horas.
+74,Cleaning & Sanitizing,El equipo sanitizado siempre debe dejarse secar al aire — nunca secarse con una toalla.
+75,Cleaning & Sanitizing,Una máquina lavaplatos de alta temperatura debe alcanzar 180°F en la superficie de los platos durante el enjuague final.
+76,Cleaning & Sanitizing,Una máquina lavaplatos de baja temperatura usa sanitizante químico y requiere un enjuague mínimo de 120°F.
+77,Cleaning & Sanitizing,Los paños para limpiar deben almacenarse en solución sanitizante entre usos — nunca en agua simple.
+78,Cleaning & Sanitizing,Las tiras reactivas deben usarse para verificar la concentración del sanitizante — siempre verificar primero la fecha de vencimiento.
+79,Cleaning & Sanitizing,Una tabla de cortar con profundas marcas de cuchillo no puede sanitizarse efectivamente y debe reemplazarse.
+80,Cleaning & Sanitizing,Las máquinas de hielo deben limpiarse regularmente según las instrucciones del fabricante para prevenir moho y bacterias.
+81,Facility & Equipment,Los lavamanos deben usarse solo para lavado de manos — nunca para preparar alimentos o enjuagar equipos.
+82,Facility & Equipment,"Cada lavamanos debe estar abastecido con jabón, toallas de un solo uso y un basurero en todo momento."
+83,Facility & Equipment,Un lavamanos debe proporcionar agua corriente a una temperatura mínima de 100°F.
+84,Facility & Equipment,Debe colocarse un letrero recordatorio de lavado de manos en cada lavamanos.
+85,Facility & Equipment,El equipo montado en el suelo debe elevarse al menos 15 cm del suelo para permitir la limpieza debajo.
+86,Facility & Equipment,Las luminarias en las áreas de preparación de alimentos deben tener cubiertas resistentes a roturas para prevenir contaminación por vidrio.
+87,Facility & Equipment,"La iluminación adecuada en un cuarto frío permite al personal leer etiquetas, verificar fechas e identificar deterioro."
+88,Facility & Equipment,Un drenaje obstruido en un área de preparación de alimentos es un peligro inmediato para la salud — debe detenerse la preparación.
+89,Facility & Equipment,Los contenedores de basura en las áreas de preparación deben tener tapas de ajuste hermético para disuadir plagas.
+90,Facility & Equipment,Un dispositivo de prevención de reflujo evita que el agua contaminada regrese al suministro de agua potable.
+91,Pest Management,"La estrategia más efectiva de prevención de plagas es eliminar las fuentes de alimento, agua y refugio."
+92,Pest Management,"Todas las grietas, fisuras y aberturas en paredes exteriores, pisos y puertas deben sellarse para prevenir la entrada de plagas."
+93,Pest Management,Las puertas de cierre automático y los burletes trabajan juntos para evitar que las plagas entren por las puertas exteriores.
+94,Pest Management,Las mallas de ventanas deben ajustar bien y estar en buen estado en cualquier área de preparación con ventanas operables.
+95,Pest Management,"Los excrementos, materiales de nidificación y marcas de mordeduras son las señales tempranas más comunes de infestación."
+96,Pest Management,Solo un operador de control de plagas con licencia puede aplicar pesticidas en una instalación de servicio de alimentos.
+97,Pest Management,Las cajas de cartón proporcionan alojamiento ideal para cucarachas y deben retirarse de la instalación rápidamente.
+98,Pest Management,Las infestaciones de cucarachas a menudo producen un olor distintivo a humedad y aceite además de excrementos visibles.
+99,Pest Management,Los roedores pueden entrar por una abertura tan pequeña como una moneda — todas las aberturas deben sellarse.
+100,Pest Management,Las moscas de la fruta se reproducen en los desagües y bandejas — mantenerlos limpios elimina sus sitios de reproducción.
+101,Pest Management,Las trampas de luz para moscas deben colocarse lejos de los alimentos para evitar que los insectos muertos caigan en ellos.
+102,Pest Management,Los informes de inspección de control de plagas deben revisarse después de cada visita y actuar sobre los hallazgos de inmediato.
+103,Food Safety Management,El encargado debe estar presente y tener conocimiento de seguridad alimentaria en todo momento durante la operación.
+104,Food Safety Management,El control activo del gerente significa identificar y corregir los riesgos de seguridad alimentaria antes de que causen enfermedades.
+105,Food Safety Management,HACCP son las siglas de Análisis de Peligros y Puntos Críticos de Control.
+106,Food Safety Management,"Los tres tipos de peligros de seguridad alimentaria son biológicos, químicos y físicos."
+107,Food Safety Management,"Un punto de control crítico es un paso en el manejo de alimentos donde un peligro puede prevenirse, eliminarse o reducirse."
+108,Food Safety Management,"Cuando no se cumple un punto de control crítico, deben tomarse medidas correctivas de inmediato."
+109,Food Safety Management,Los registros de seguridad alimentaria proporcionan prueba escrita de que se realizaron el monitoreo y las acciones correctivas.
+110,Food Safety Management,Un retiro de alimentos requiere la eliminación inmediata del producto afectado del servicio.
+111,Food Safety Management,Varios empleados que reportan enfermedades estomacales el mismo día pueden indicar un brote de enfermedad transmitida por alimentos.
+112,Food Safety Management,La diferencia entre restricción y exclusión es que la restricción limita las funciones mientras que la exclusión retira completamente al manipulador.
+113,General,Las enfermedades transmitidas por alimentos afectan a un estimado de 48 millones de estadounidenses cada año.
+114,General,"Los cinco principales factores de riesgo para enfermedades transmitidas por alimentos son: temperaturas de mantenimiento inadecuadas, cocción insuficiente, higiene personal deficiente, equipo contaminado y fuentes de alimentos inseguras."
+115,General,La mayoría de las enfermedades transmitidas por alimentos son prevenibles con la aplicación consistente de prácticas básicas de seguridad alimentaria.
+116,General,El Norovirus es la causa más común de enfermedades transmitidas por alimentos en los Estados Unidos.
+117,General,Las bacterias se multiplican más rápidamente entre 70°F y 125°F — la parte media de la zona de peligro de temperatura.
+118,General,"En condiciones ideales, una sola bacteria puede multiplicarse a más de un millón en solo 10 horas."
+119,General,TCS son las siglas de Control de Temperatura para Seguridad.
+120,General,El examen ServSafe consta de 90 preguntas y requiere una puntuación del 75% o más para aprobar.
+121,General,"Una cultura de seguridad alimentaria comienza con la gerencia — cuando los gerentes toman en serio la seguridad alimentaria, el personal los sigue."
+122,General,"Ante la duda, deséchalo — el costo de desechar alimentos siempre es menor que el costo de un brote de enfermedad transmitida por alimentos."
