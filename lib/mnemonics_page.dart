@@ -261,8 +261,8 @@ class MnemonicsPage extends StatelessWidget {
             height: 28,
             margin: const EdgeInsets.only(right: 8),
             decoration: BoxDecoration(
-              color: accentColor,flutter run
-              
+              color: accentColor,
+
               borderRadius: BorderRadius.circular(6),
             ),
             alignment: Alignment.center,
