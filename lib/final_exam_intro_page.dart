@@ -3,6 +3,7 @@ import 'constants.dart';
 import 'csv_loader.dart';
 import 'home_page.dart';
 import 'final_step_exam_page.dart';
+import 'safe_prep_nav_bar.dart';
 
 class FinalExamIntroPage extends StatefulWidget {
   const FinalExamIntroPage({super.key});
@@ -174,39 +175,7 @@ class _FinalExamIntroPageState extends State<FinalExamIntroPage> {
                 ),
               ),
 
-              // Pie de página
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8),
-                child: Column(
-                  spacing: AppSizes.footerSpacing,
-                  children: [
-                    Text(
-                      AppStrings.footerLine1,
-                      style: TextStyle(
-                        fontSize: AppFonts.footer,
-                        color: AppColors.footerText,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                    Text(
-                      AppStrings.footerLine2,
-                      style: TextStyle(
-                        fontSize: AppFonts.footer,
-                        color: AppColors.footerText,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                    Text(
-                      AppStrings.footerLine3,
-                      style: TextStyle(
-                        fontSize: AppFonts.footer,
-                        color: AppColors.starMotifBlue,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
-                ),
-              ),
+              const SafePrepNavBar(),
             ],
           ),
         ),

@@ -5,6 +5,8 @@ import 'app_state.dart';
 import 'home_page.dart';
 import 'category_study_page.dart';
 import 'sixty_second_refresh_page.dart';
+import 'safe_prep_nav_bar.dart';
+import 'mixpanel_service.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key});
@@ -32,9 +34,35 @@ class _DashboardPageState extends State<DashboardPage> {
     'Food Safety Management',
   ];
 
+  // ── National average seed values (DISPLAY-ONLY) ─────────────────────
+  // Same values as Manager. Never written to AppState/ReadinessEngine —
+  // exists purely so the Dashboard doesn't look empty before a trial user
+  // has generated any real data. Ignored entirely once a real score exists.
+  static const Map<String, int> _nationalAverages = {
+    'Time & Temperature': 68,
+    'Cross-Contamination': 74,
+    'Food Preparation': 78,
+    'Receiving & Storage': 76,
+    'Personal Hygiene': 82,
+    'Cleaning & Sanitizing': 80,
+    'Facility & Equipment': 85,
+    'Food Safety Management': 71,
+  };
+
+  int get _nationalAverageOverall {
+    final values = _nationalAverages.values.toList();
+    return values.reduce((a, b) => a + b) ~/ values.length;
+  }
+
   @override
   void initState() {
     super.initState();
+    // TODO: confirm 'ES' is the correct Mixpanel app_name code for
+    // Español, matching whatever taxonomy the other apps use (SP/SR/SA).
+    MixpanelService.instance.track(
+      'dashboard_viewed',
+      properties: {'app_name': 'ES'},
+    );
     _loadFacts();
     _startFactTimer();
   }
@@ -150,6 +178,17 @@ class _DashboardPageState extends State<DashboardPage> {
       overallText = '$latest%';
       deltaText =
           'Prom. de ${scores.length} ${scores.length == 1 ? 'categoría' : 'categorías'}';
+      overallColor = _scoreColor(latest);
+    } else if (!_state.hasUnlockedApp) {
+      // Trial mode only, no real data yet — show the seeded national
+      // average so a browsing trial user doesn't see a blank dashboard.
+      // Display-only: never written to AppState. Purchased users always
+      // fall through to the default blank/dash state below, matching
+      // Manager's behavior exactly.
+      latest = _nationalAverageOverall;
+      overallText = '$latest%';
+      deltaText = 'Promedio nacional — aún no es tu puntaje';
+      baselineText = 'Se adapta mientras estudias';
       overallColor = _scoreColor(latest);
     }
 
@@ -302,15 +341,23 @@ class _DashboardPageState extends State<DashboardPage> {
               ),
             ),
             Text(
-              hasTaken ? '$score%' : '\u2014',
+              hasTaken
+                  ? '$score%'
+                  : (_state.hasUnlockedApp
+                        ? '\u2014'
+                        : '${_nationalAverages[category] ?? 75}%'),
               style: TextStyle(
-                color: hasTaken ? _scoreColor(score) : const Color(0xFF555555),
+                color: hasTaken ? _scoreColor(score) : const Color(0xFF6B7A8A),
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
               ),
             ),
             Text(
-              hasTaken ? 'Línea base: $baseline%' : 'Aún no evaluado',
+              hasTaken
+                  ? 'Línea base: $baseline%'
+                  : (_state.hasUnlockedApp
+                        ? 'Aún no evaluado'
+                        : 'Promedio nacional — se adapta mientras estudias'),
               style: const TextStyle(color: Color(0xFF8A8A8A), fontSize: 10),
             ),
             const SizedBox(height: 4),
@@ -592,146 +639,120 @@ class _DashboardPageState extends State<DashboardPage> {
     return Scaffold(
       backgroundColor: AppColors.servSafeBlue,
       body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(8),
-          child: Column(
-            children: [
-              _buildHeader(),
-
-              Container(
-                decoration: BoxDecoration(
-                  color: const Color(0xFF1A1A1A),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                padding: const EdgeInsets.all(16),
-                margin: const EdgeInsets.only(bottom: 12),
+        child: Column(
+          children: [
+            Expanded(
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.all(8),
                 child: Column(
-                  spacing: 16,
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      spacing: 4,
-                      children: [
-                        Text(
-                          dashTitle,
-                          style: const TextStyle(
-                            color: Color(0xFFE0E0E0),
-                            fontSize: 18,
-                            fontWeight: FontWeight.w600,
+                    _buildHeader(),
+                    Container(
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF1A1A1A),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      padding: const EdgeInsets.all(16),
+                      margin: const EdgeInsets.only(bottom: 12),
+                      child: Column(
+                        spacing: 16,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            spacing: 4,
+                            children: [
+                              Text(
+                                dashTitle,
+                                style: const TextStyle(
+                                  color: Color(0xFFE0E0E0),
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              const Divider(color: Color(0xFF2C2C2C)),
+                            ],
                           ),
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        const Divider(color: Color(0xFF2C2C2C)),
-                      ],
-                    ),
-                    _buildSummaryCards(),
-                    const Divider(color: Color(0xFF2C2C2C)),
-                    Column(
-                      spacing: 0,
-                      children: [
-                        GestureDetector(
-                          onTap: () => setState(
-                            () => _studyCategoriesExpanded =
-                                !_studyCategoriesExpanded,
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 4),
-                            child: Row(
-                              children: [
-                                const Expanded(
-                                  child: Text(
-                                    'Categorías de Estudio',
-                                    style: TextStyle(
-                                      color: Color(0xFFE0E0E0),
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w600,
-                                    ),
+                          _buildSummaryCards(),
+                          const Divider(color: Color(0xFF2C2C2C)),
+                          Column(
+                            spacing: 0,
+                            children: [
+                              GestureDetector(
+                                onTap: () => setState(
+                                  () => _studyCategoriesExpanded =
+                                      !_studyCategoriesExpanded,
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 4,
+                                  ),
+                                  child: Row(
+                                    children: [
+                                      const Expanded(
+                                        child: Text(
+                                          'Categorías de Estudio',
+                                          style: TextStyle(
+                                            color: Color(0xFFE0E0E0),
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                      ),
+                                      Text(
+                                        _studyCategoriesExpanded
+                                            ? '\u25bc'
+                                            : '\u25b6',
+                                        style: const TextStyle(
+                                          color: Color(0xFF4DA3FF),
+                                          fontSize: 12,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                                Text(
-                                  _studyCategoriesExpanded
-                                      ? '\u25bc'
-                                      : '\u25b6',
-                                  style: const TextStyle(
-                                    color: Color(0xFF4DA3FF),
-                                    fontSize: 12,
-                                  ),
-                                ),
+                              ),
+                              if (_studyCategoriesExpanded) ...[
+                                const SizedBox(height: 12),
+                                _buildStudyGrid(),
                               ],
+                            ],
+                          ),
+                          _buildMasteredSection(),
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      width: 280,
+                      height: AppSizes.primaryButtonHeight,
+                      child: ElevatedButton(
+                        onPressed: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => const SixtySecondRefreshPage(
+                              returnTo: SixtySecondReturnTo.dashboard,
                             ),
                           ),
                         ),
-                        if (_studyCategoriesExpanded) ...[
-                          const SizedBox(height: 12),
-                          _buildStudyGrid(),
-                        ],
-                      ],
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: AppColors.primaryButton,
+                          foregroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(
+                              AppSizes.buttonCornerRadius,
+                            ),
+                          ),
+                        ),
+                        child: const Text('\u23f1 Repaso de 60 Segundos'),
+                      ),
                     ),
-                    _buildMasteredSection(),
+                    const SizedBox(height: 12),
                   ],
                 ),
               ),
-
-              SizedBox(
-                width: 280,
-                height: AppSizes.primaryButtonHeight,
-                child: ElevatedButton(
-                  onPressed: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => const SixtySecondRefreshPage(
-                        returnTo: SixtySecondReturnTo.dashboard,
-                      ),
-                    ),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.primaryButton,
-                    foregroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(
-                        AppSizes.buttonCornerRadius,
-                      ),
-                    ),
-                  ),
-                  child: const Text('\u23f1 Repaso de 60 Segundos'),
-                ),
-              ),
-
-              const SizedBox(height: 12),
-
-              Column(
-                spacing: AppSizes.footerSpacing,
-                children: [
-                  Text(
-                    AppStrings.footerLine1,
-                    style: TextStyle(
-                      fontSize: AppFonts.footer,
-                      color: AppColors.footerText,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                  Text(
-                    AppStrings.footerLine2,
-                    style: TextStyle(
-                      fontSize: AppFonts.footer,
-                      color: AppColors.footerText,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                  Text(
-                    AppStrings.footerLine3,
-                    style: TextStyle(
-                      fontSize: AppFonts.footer,
-                      color: AppColors.starMotifBlue,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                ],
-              ),
-
-              const SizedBox(height: 12),
-            ],
-          ),
+            ),
+            const SafePrepNavBar(isDashboardPage: true),
+          ],
         ),
       ),
     );

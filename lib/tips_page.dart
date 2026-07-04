@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'constants.dart';
 import 'home_page.dart';
+import 'safe_prep_nav_bar.dart';
 
 class TipsPage extends StatelessWidget {
   const TipsPage({super.key});
@@ -126,6 +127,7 @@ class TipsPage extends StatelessWidget {
                 ),
               ),
             ),
+            const SafePrepNavBar(),
           ],
         ),
       ),

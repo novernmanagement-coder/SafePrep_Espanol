@@ -6,6 +6,7 @@ import 'app_state_persistence.dart';
 import 'home_page.dart';
 import 'dashboard_page.dart';
 import 'readiness_engine.dart';
+import 'safe_prep_nav_bar.dart';
 
 enum SixtySecondReturnTo { homePage, dashboard }
 
@@ -414,38 +415,7 @@ class _SixtySecondRefreshPageState extends State<SixtySecondRefreshPage> {
                     : _buildCategoryGrid(),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 4),
-              child: Column(
-                spacing: AppSizes.footerSpacing,
-                children: [
-                  Text(
-                    AppStrings.footerLine1,
-                    style: TextStyle(
-                      fontSize: AppFonts.footer,
-                      color: AppColors.footerText,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                  Text(
-                    AppStrings.footerLine2,
-                    style: TextStyle(
-                      fontSize: AppFonts.footer,
-                      color: AppColors.footerText,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                  Text(
-                    AppStrings.footerLine3,
-                    style: TextStyle(
-                      fontSize: AppFonts.footer,
-                      color: AppColors.starMotifBlue,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                ],
-              ),
-            ),
+            const SafePrepNavBar(),
           ],
         ),
       ),

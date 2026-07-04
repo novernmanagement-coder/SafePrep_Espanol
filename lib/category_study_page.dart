@@ -6,6 +6,7 @@ import 'app_state_persistence.dart';
 import 'dashboard_page.dart';
 import 'assessment_info_page.dart';
 import 'category_quiz_page.dart';
+import 'safe_prep_nav_bar.dart';
 
 class CategoryStudyPage extends StatefulWidget {
   final String category;
@@ -350,93 +351,107 @@ class _CategoryStudyPageState extends State<CategoryStudyPage> {
     return Scaffold(
       backgroundColor: AppColors.servSafeBlue,
       body: SafeArea(
-        child: SingleChildScrollView(
-          padding: AppSizes.pageMargin,
-          child: Column(
-            children: [
-              _buildHeader(),
-
-              isComplete || content == null
-                  ? _buildCompletionCard()
-                  : _buildConceptCard(content),
-
-              if (!isComplete) ...[
-                Row(
-                  spacing: 8,
+        child: Column(
+          children: [
+            Expanded(
+              child: SingleChildScrollView(
+                padding: AppSizes.pageMargin,
+                child: Column(
                   children: [
-                    Expanded(
-                      child: SizedBox(
-                        height: AppSizes.primaryButtonHeight,
-                        child: ElevatedButton(
-                          onPressed: _currentIndex > 0 ? _goPrevious : null,
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: AppColors.primaryButton,
-                            foregroundColor: Colors.white,
-                            disabledBackgroundColor: AppColors.disabledButton,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(
-                                AppSizes.buttonCornerRadius,
+                    _buildHeader(),
+
+                    isComplete || content == null
+                        ? _buildCompletionCard()
+                        : _buildConceptCard(content),
+
+                    if (!isComplete) ...[
+                      Row(
+                        spacing: 8,
+                        children: [
+                          Expanded(
+                            child: SizedBox(
+                              height: AppSizes.primaryButtonHeight,
+                              child: ElevatedButton(
+                                onPressed: _currentIndex > 0
+                                    ? _goPrevious
+                                    : null,
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: AppColors.primaryButton,
+                                  foregroundColor: Colors.white,
+                                  disabledBackgroundColor:
+                                      AppColors.disabledButton,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(
+                                      AppSizes.buttonCornerRadius,
+                                    ),
+                                  ),
+                                ),
+                                child: const Text('← Anterior'),
                               ),
                             ),
                           ),
-                          child: const Text('← Anterior'),
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: SizedBox(
-                        height: AppSizes.primaryButtonHeight,
-                        child: ElevatedButton(
-                          onPressed: _goNext,
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: AppColors.primaryButton,
-                            foregroundColor: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(
-                                AppSizes.buttonCornerRadius,
+                          Expanded(
+                            child: SizedBox(
+                              height: AppSizes.primaryButtonHeight,
+                              child: ElevatedButton(
+                                onPressed: _goNext,
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: AppColors.primaryButton,
+                                  foregroundColor: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(
+                                      AppSizes.buttonCornerRadius,
+                                    ),
+                                  ),
+                                ),
+                                child: Text(
+                                  isLast ? 'Tomar Quiz' : 'Siguiente →',
+                                ),
                               ),
                             ),
                           ),
-                          child: Text(isLast ? 'Tomar Quiz' : 'Siguiente →'),
+                        ],
+                      ),
+                      const SizedBox(height: 8),
+                    ],
+
+                    SizedBox(
+                      width: double.infinity,
+                      height: AppSizes.primaryButtonHeight,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          _state.markCategoryStudied(widget.category);
+                          AppStatePersistence.save();
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => const DashboardPage(),
+                            ),
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: AppColors.primaryButton,
+                          foregroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(
+                              AppSizes.buttonCornerRadius,
+                            ),
+                          ),
                         ),
+                        child: const Text('Volver al Panel'),
                       ),
                     ),
+
+                    const SizedBox(height: 10),
+
+                    if (!isComplete && keyPoints.isNotEmpty)
+                      _buildKeyPointsCard(keyPoints),
                   ],
                 ),
-                const SizedBox(height: 8),
-              ],
-
-              SizedBox(
-                width: double.infinity,
-                height: AppSizes.primaryButtonHeight,
-                child: ElevatedButton(
-                  onPressed: () {
-                    _state.markCategoryStudied(widget.category);
-                    AppStatePersistence.save();
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(builder: (_) => const DashboardPage()),
-                    );
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.primaryButton,
-                    foregroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(
-                        AppSizes.buttonCornerRadius,
-                      ),
-                    ),
-                  ),
-                  child: const Text('Volver al Panel'),
-                ),
               ),
-
-              const SizedBox(height: 10),
-
-              if (!isComplete && keyPoints.isNotEmpty)
-                _buildKeyPointsCard(keyPoints),
-            ],
-          ),
+            ),
+            const SafePrepNavBar(),
+          ],
         ),
       ),
     );

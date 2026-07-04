@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'constants.dart';
 import 'app_state.dart';
@@ -12,6 +13,10 @@ import 'sixty_second_refresh_page.dart';
 import 'about_proctors_page.dart';
 import 'final_exam_intro_page.dart';
 import 'peace_of_mind_page.dart';
+import 'safe_prep_nav_bar.dart';
+import 'trial_timer_service.dart';
+import 'mixpanel_service.dart';
+import 'preview/preview_cinematic_splash.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -20,16 +25,87 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   final AppState _state = AppState();
   String _currentFact = '';
   List<MilestoneModel> _milestones = [];
 
+  // Local display-only ticker for the "Prueba — mm:ss" countdown on Home.
+  // Reads TrialTimerService.remainingSeconds; does not affect trial logic.
+  Timer? _displayTicker;
+
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     _loadFacts();
     _loadMilestones();
+
+    // TODO: confirm 'ES' is the correct Mixpanel app_name code for
+    // Español, matching whatever taxonomy the other apps use (SP/SR/SA).
+    MixpanelService.instance.track(
+      'session_start',
+      properties: {'is_unlocked': _state.hasUnlockedApp, 'app_name': 'ES'},
+    );
+    MixpanelService.instance.track(
+      'home_viewed',
+      properties: {'is_unlocked': _state.hasUnlockedApp, 'app_name': 'ES'},
+    );
+
+    if (!_state.hasUnlockedApp) {
+      MixpanelService.instance.track(
+        'trial_started',
+        properties: {'app_name': 'ES'},
+      );
+      if (!TrialTimerService.instance.isExpired) {
+        TrialTimerService.instance.onTrialExpired = _onTrialExpired;
+        TrialTimerService.instance.start();
+        _startDisplayTicker();
+      } else {
+        _onTrialExpired();
+      }
+    }
+  }
+
+  void _startDisplayTicker() {
+    _displayTicker = Timer.periodic(const Duration(seconds: 1), (_) {
+      if (!mounted) return;
+      setState(() {}); // repaint to reflect TrialTimerService.remainingSeconds
+    });
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    _displayTicker?.cancel();
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.paused) {
+      MixpanelService.instance.track(
+        'session_end',
+        properties: {'app_name': 'ES'},
+      );
+    }
+  }
+
+  // TODO: confirm PreviewCinematicSplash is the correct paywall destination
+  // for Español once the trial expires — matches what Español's own
+  // splash_page.dart already routes expired users to.
+  void _onTrialExpired() {
+    MixpanelService.instance.track(
+      'trial_expired',
+      properties: {'app_name': 'ES'},
+    );
+    _displayTicker?.cancel();
+    if (!mounted) return;
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (_) => const PreviewCinematicSplash()),
+      (route) => false,
+    );
   }
 
   void _checkUnlockTrophy() {
@@ -611,6 +687,39 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  // ── Trial countdown display (replaces the curriculum button during
+  // trial) ── PASSIVE — no tap action, matching Manager's spec.
+  Widget _buildTrialCountdown() {
+    final remaining = TrialTimerService.instance.remainingSeconds;
+    final minutes = (remaining ~/ 60).toString().padLeft(2, '0');
+    final seconds = (remaining % 60).toString().padLeft(2, '0');
+
+    return Column(
+      spacing: 2,
+      children: [
+        Container(
+          width: double.infinity,
+          height: AppSizes.primaryButtonHeight,
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            color: const Color(0xFF0A0A0F),
+            borderRadius: BorderRadius.circular(AppSizes.buttonCornerRadius),
+            border: Border.all(color: const Color(0xFFD4AF37), width: 1.5),
+          ),
+          child: Text(
+            'Prueba — $minutes:$seconds',
+            style: const TextStyle(
+              color: Color(0xFFD4AF37),
+              fontSize: AppFonts.button,
+              fontWeight: FontWeight.w700,
+              letterSpacing: 0.5,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
   // ── Full trophy section ───────────────────────────────────
   Widget _buildTrophySection() {
     if (_milestones.isEmpty) return const SizedBox();
@@ -850,27 +959,33 @@ class _HomePageState extends State<HomePage> {
                   child: Column(
                     spacing: AppSizes.cardSpacing,
                     children: [
-                      Column(
-                        spacing: 2,
-                        children: [
-                          _buildButton(
-                            'Crear mi plan de estudio personalizado',
-                            () => Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (_) => const AssessmentInfoPage(),
-                              ),
-                            ),
-                          ),
-                          Text(
-                            '(Primer paso recomendado)',
-                            style: TextStyle(
-                              fontSize: 11,
-                              color: AppColors.subtleText,
-                            ),
-                          ),
-                        ],
-                      ),
+                      // Top slot: trial countdown (no comprado) OR
+                      // curriculum/assessment button (comprado).
+                      _state.hasUnlockedApp
+                          ? Column(
+                              spacing: 2,
+                              children: [
+                                _buildButton(
+                                  'Crear mi plan de estudio personalizado',
+                                  () => Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (_) =>
+                                          const AssessmentInfoPage(),
+                                    ),
+                                  ),
+                                ),
+                                Text(
+                                  '(Primer paso recomendado)',
+                                  style: TextStyle(
+                                    fontSize: 11,
+                                    color: AppColors.subtleText,
+                                  ),
+                                ),
+                              ],
+                            )
+                          : _buildTrialCountdown(),
+
                       _buildButton(
                         'El Panel de SafePrep™',
                         () => Navigator.push(
@@ -898,6 +1013,10 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
                       ),
+                      // POM button — label updated to match Manager's
+                      // "60 Second Trainers" rename. File/class/navigation
+                      // target (PeaceOfMindPage) intentionally left
+                      // untouched, same as Manager's own approach.
                       SizedBox(
                         width: double.infinity,
                         height: AppSizes.primaryButtonHeight,
@@ -918,7 +1037,7 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
                           child: const Text(
-                            '🔓 Tranquilidad Total',
+                            '🔓 Entrenadores de 60 Segundos',
                             style: TextStyle(
                               fontSize: AppFonts.button,
                               fontWeight: FontWeight.w600,
@@ -998,6 +1117,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
+              const SafePrepNavBar(),
             ],
           ),
         ),
