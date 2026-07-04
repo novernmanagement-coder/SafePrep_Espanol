@@ -6,6 +6,7 @@ import 'csv_loader.dart';
 import 'app_state_persistence.dart';
 import 'readiness_engine.dart';
 import 'peace_of_mind_page.dart';
+import 'safe_prep_nav_bar.dart';
 
 class RapidFirePage extends StatefulWidget {
   const RapidFirePage({super.key});
@@ -342,6 +343,7 @@ class _RapidFirePageState extends State<RapidFirePage>
             Expanded(child: _buildCardArea()),
             _buildScoreCounters(),
             _buildControls(),
+            const SafePrepNavBar(),
           ],
         ),
       ),
@@ -601,7 +603,7 @@ class _RapidFirePageState extends State<RapidFirePage>
 
   Widget _buildControls() {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(0, 12, 0, 20),
+      padding: const EdgeInsets.fromLTRB(0, 12, 0, 12),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

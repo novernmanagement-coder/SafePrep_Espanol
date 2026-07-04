@@ -6,6 +6,7 @@ import 'app_state_persistence.dart';
 import 'readiness_engine.dart';
 import 'csv_loader.dart';
 import 'peace_of_mind_page.dart';
+import 'safe_prep_nav_bar.dart';
 
 class ScenarioDrillsPage extends StatefulWidget {
   final String? filterCategory;
@@ -255,7 +256,7 @@ class _ScenarioDrillsPageState extends State<ScenarioDrillsPage> {
           children: [
             _buildHeader(),
             Expanded(child: _buildBody()),
-            _buildFooter(),
+            const SafePrepNavBar(),
           ],
         ),
       ),
@@ -621,39 +622,6 @@ class _ScenarioDrillsPageState extends State<ScenarioDrillsPage> {
                 ),
               ),
             ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildFooter() {
-    return const Padding(
-      padding: EdgeInsets.fromLTRB(0, 4, 0, 6),
-      child: Column(
-        children: [
-          Text(
-            AppStrings.footerLine1,
-            style: TextStyle(
-              fontSize: AppFonts.footer,
-              color: AppColors.footerText,
-            ),
-          ),
-          SizedBox(height: AppSizes.footerSpacing),
-          Text(
-            AppStrings.footerLine2,
-            style: TextStyle(
-              fontSize: AppFonts.footer,
-              color: AppColors.footerText,
-            ),
-          ),
-          SizedBox(height: AppSizes.footerSpacing),
-          Text(
-            AppStrings.footerLine3,
-            style: TextStyle(
-              fontSize: AppFonts.footer,
-              color: AppColors.starMotifBlue,
-            ),
-          ),
         ],
       ),
     );

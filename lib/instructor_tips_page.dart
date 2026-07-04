@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'constants.dart';
 import 'csv_loader.dart';
 import 'peace_of_mind_page.dart';
+import 'safe_prep_nav_bar.dart';
 
 class InstructorTipsPage extends StatefulWidget {
   const InstructorTipsPage({super.key});
@@ -55,7 +56,7 @@ class _InstructorTipsPageState extends State<InstructorTipsPage> {
           children: [
             _buildHeader(),
             Expanded(child: _buildTipsList()),
-            _buildFooter(),
+            const SafePrepNavBar(),
           ],
         ),
       ),
@@ -192,39 +193,6 @@ class _InstructorTipsPageState extends State<InstructorTipsPage> {
               fontSize: AppFonts.body,
               color: Color(0xFF1A1A1A),
               height: 1.57,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildFooter() {
-    return const Padding(
-      padding: EdgeInsets.fromLTRB(0, 6, 0, 8),
-      child: Column(
-        children: [
-          Text(
-            AppStrings.footerLine1,
-            style: TextStyle(
-              fontSize: AppFonts.footer,
-              color: AppColors.footerText,
-            ),
-          ),
-          SizedBox(height: AppSizes.footerSpacing),
-          Text(
-            AppStrings.footerLine2,
-            style: TextStyle(
-              fontSize: AppFonts.footer,
-              color: AppColors.footerText,
-            ),
-          ),
-          SizedBox(height: AppSizes.footerSpacing),
-          Text(
-            AppStrings.footerLine3,
-            style: TextStyle(
-              fontSize: AppFonts.footer,
-              color: AppColors.starMotifBlue,
             ),
           ),
         ],

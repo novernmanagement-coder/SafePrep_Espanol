@@ -5,6 +5,7 @@ import 'app_state_persistence.dart';
 import 'csv_loader.dart';
 import 'peace_of_mind_page.dart';
 import 'readiness_engine.dart';
+import 'safe_prep_nav_bar.dart';
 
 enum _CardState { deck, question, reveal }
 
@@ -205,6 +206,7 @@ class _FlashCardsPageState extends State<FlashCardsPage>
             _buildHeader(),
             Expanded(child: _buildCardArea()),
             _buildNavButtons(),
+            const SafePrepNavBar(),
           ],
         ),
       ),
@@ -605,7 +607,7 @@ class _FlashCardsPageState extends State<FlashCardsPage>
 
   Widget _buildNavButtons() {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(0, 12, 0, 16),
+      padding: const EdgeInsets.fromLTRB(0, 12, 0, 8),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
