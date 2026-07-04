@@ -262,7 +262,6 @@ class MnemonicsPage extends StatelessWidget {
             margin: const EdgeInsets.only(right: 8),
             decoration: BoxDecoration(
               color: accentColor,
-
               borderRadius: BorderRadius.circular(6),
             ),
             alignment: Alignment.center,
