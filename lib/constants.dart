@@ -1,9 +1,26 @@
 import 'package:flutter/material.dart';
 
+// UPDATED — brand palette moved from Manager's blue to a distinct green
+// family (per Gerry: "green - represents growth & hope"), paired with a
+// gold "ES" badge on the app icon. This isn't cosmetic: Español's icon
+// and palette were previously an unmodified copy of Manager's — same
+// blue shield icon, same blue button/background colors everywhere. That's
+// the exact pattern that got SafePrep Alcohol's App Store submission
+// flagged as looking like spam/a clone of Manager, which is why Alcohol
+// ships its own burgundy palette + martini-glass icon today. This same
+// fix, applied here, before Español hits the same problem.
+//
+// Every color below is a named constant referenced app-wide (92 call
+// sites across the codebase at the time of this change) — so changing
+// the values here recolors the whole app without touching any call
+// site. Deliberately NOT reused: the existing `success`/`progressGreen`
+// green (0xFF3BA776, "correct answer" semantics) — the new brand green
+// is a distinct deeper emerald so a correct-answer flash and a primary
+// button never look like the same color doing two different jobs.
 class AppColors {
   // Brand Colors
-  static const Color servSafeBlue = Color(0xFFE3F0F9);
-  static const Color headerBlue = Color(0xFFD9E8F4);
+  static const Color servSafeBlue = Color(0xFFE0F3E8);
+  static const Color headerBlue = Color(0xFFD3EDDD);
   static const Color cardBackground = Color(0xFFFFFFFF);
 
   // Text Colors
@@ -11,13 +28,13 @@ class AppColors {
   static const Color subtleText = Color(0xFF666666);
   static const Color footerText = Color(0xFF888888);
   static const Color strongText = Color(0xFF333333);
-  static const Color starMotifBlue = Color(0xFFC0D2E4);
+  static const Color starMotifBlue = Color(0xFFBBE0CB);
 
   // Button Colors
-  static const Color primaryButton = Color(0xFF4A6FA5);
+  static const Color primaryButton = Color(0xFF1E7A4C);
   static const Color primaryButtonForeground = Colors.white;
   static const Color secondaryButton = Colors.white;
-  static const Color secondaryButtonForeground = Color(0xFF4A6FA5);
+  static const Color secondaryButtonForeground = Color(0xFF1E7A4C);
   static const Color neutralButton = Color(0xFFEFEFEF);
   static const Color neutralButtonForeground = Color(0xFF333333);
   static const Color upgradeButton = Color(0xFFF0C575);
@@ -41,18 +58,21 @@ class AppColors {
   static const Color scoreBand4 = Color(0xFF3BA776); // 85-100%
 
   // Progress Colors
-  static const Color progressBar = Color(0xFF4A6FA5);
-  static const Color progressBarBackground = Color(0xFFD9E8F4);
+  static const Color progressBar = Color(0xFF1E7A4C);
+  static const Color progressBarBackground = Color(0xFFD3EDDD);
   static const Color progressGreen = Color(0xFF3BA776);
-  static const Color progressBlue = Color(0xFF4A6FA5);
+  // Named "progressBlue" for historical/call-site reasons (renaming
+  // would mean touching every usage for no functional gain) — value is
+  // now the brand green, matching primaryButton/progressBar.
+  static const Color progressBlue = Color(0xFF1E7A4C);
   static const Color progressTeal = Color(0xFF26A69A);
   static const Color progressYellow = Color(0xFFE6A23C);
 
   // Footer Button Colors
   static const Color footerButton = Colors.white;
-  static const Color footerButtonForeground = Color(0xFF4A6FA5);
-  static const Color footerButtonBorder = Color(0xFF4A6FA5);
-  static const Color footerButtonSelected = Color(0xFF4A6FA5);
+  static const Color footerButtonForeground = Color(0xFF1E7A4C);
+  static const Color footerButtonBorder = Color(0xFF1E7A4C);
+  static const Color footerButtonSelected = Color(0xFF1E7A4C);
   static const Color footerButtonSelectedForeground = Colors.white;
 }
 

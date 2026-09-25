@@ -236,7 +236,7 @@ class _AssessmentPageV2State extends State<AssessmentPageV2> {
   Widget build(BuildContext context) {
     if (!_loaded) {
       return const Scaffold(
-        backgroundColor: Color(0xFFE3F0F9),
+        backgroundColor: AppColors.servSafeBlue,
         body: Center(child: CircularProgressIndicator()),
       );
     }

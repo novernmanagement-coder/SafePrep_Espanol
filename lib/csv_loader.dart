@@ -7,10 +7,28 @@ import 'app_state.dart';
 
 // ─────────────────────────────────────────────────────────────────
 // REMOTE CSV CONFIG
+//
+// FIXED — this pointed at the repo ROOT (main/version.json,
+// main/MarqueeFacts.csv, etc.), but every one of these files actually
+// lives under Assets/ in this repo (confirmed: root paths 404, Assets/
+// paths return 200). That meant CsvUpdater.syncIfNeeded() has always
+// failed at its very first request (the version.json fetch, before it
+// even gets to individual files) and silently no-opped — remote CSV
+// updates have never actually worked. This is very likely why the
+// marquee (and potentially other CSV-driven content) can show stale
+// English text on an existing install: readCsvLines() prefers a
+// cached copy in the app's documents directory over the bundled
+// Spanish asset, and if any earlier build ever DID succeed in caching
+// an English copy (or a device's local csv_version.json already
+// records a version that now matches), that stale cache silently wins
+// forever — this fix alone won't clear an already-bad cache on a
+// device that already has one. A full uninstall/reinstall (or clearing
+// the app's local storage) forces a fresh read from the bundled
+// Spanish asset and is the surest way to clear it.
 // ─────────────────────────────────────────────────────────────────
 const String _baseUrl =
-    'https://raw.githubusercontent.com/novernmanagement-coder/SafePrep_Espanol/main';
-const String _versionUrl = '$_baseUrl/version.json';
+    'https://raw.githubusercontent.com/novernmanagement-coder/SafePrep_Espanol/main/Assets';
+const String _versionUrl = '$_baseUrl/version.json.txt';
 
 const List<String> _remoteFiles = [
   'FinalTestQuestions5.csv',

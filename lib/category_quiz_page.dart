@@ -190,7 +190,7 @@ class _CategoryQuizPageState extends State<CategoryQuizPage> {
   Widget build(BuildContext context) {
     if (!_loaded) {
       return const Scaffold(
-        backgroundColor: Color(0xFFE3F0F9),
+        backgroundColor: AppColors.servSafeBlue,
         body: Center(child: CircularProgressIndicator()),
       );
     }
