@@ -21,9 +21,9 @@ import 'onboard_knowledge_level.dart';
 /// FSME's role here is deliberately minimal — one reactive line via
 /// the shared [FsmePopup] widget, no authored multi-beat script.
 ///
-/// "¿Aún no listo?" routes to the Fuego Rápido preview (now ported —
-/// see RapidFireLimitedIntro) as a taste of the tool before a second
-/// ask, rather than a hard decline exit.
+/// "¿Aún no estás listo?" routes to the Fuego Rápido preview (now
+/// ported — see RapidFireLimitedIntro) as a taste of the tool before a
+/// second ask, rather than a hard decline exit.
 ///
 /// Still DIVERGES from Manager on one point, a deliberate scope call:
 /// on purchase success, routes straight to [DashboardPage] instead of
@@ -261,7 +261,7 @@ class _OnboardPaywallState extends State<OnboardPaywall> {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10),
                   child: Text(
-                    '¿Aún no listo para decidir? Prueba esto primero  →',
+                    '¿Aún no estás listo para decidir? Prueba esto primero  →',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 13,

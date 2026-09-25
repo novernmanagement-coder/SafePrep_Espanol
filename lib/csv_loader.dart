@@ -25,10 +25,24 @@ import 'app_state.dart';
 // device that already has one. A full uninstall/reinstall (or clearing
 // the app's local storage) forces a fresh read from the bundled
 // Spanish asset and is the surest way to clear it.
+//
+// CACHE FOLDER (Sept 2026): cached CSVs now live in their own
+// 'SafePrepEspanol' subfolder instead of the bare documents directory.
+// On Windows and macOS the documents directory is the user's shared
+// Documents folder, so every SafePrep app wrote the SAME filenames to
+// the same place — running Español on Windows was reading SafePrep
+// Alcohol's cached FinalTestQuestions5.csv (175 alcohol questions, zero
+// food-safety ones). Phones were never affected (each app gets its own
+// private folder there). Moving to a subfolder also means any old bad
+// cache sitting in the bare folder is simply never read again — on the
+// next launch the app reads the bundled Spanish asset until a fresh
+// sync lands. Same pattern Tax Starter uses ('SafePrepTax').
 // ─────────────────────────────────────────────────────────────────
 const String _baseUrl =
     'https://raw.githubusercontent.com/novernmanagement-coder/SafePrep_Espanol/main/Assets';
 const String _versionUrl = '$_baseUrl/version.json.txt';
+
+const String _cacheSubfolder = 'SafePrepEspanol';
 
 const List<String> _remoteFiles = [
   'FinalTestQuestions5.csv',
@@ -38,6 +52,16 @@ const List<String> _remoteFiles = [
   'ServSafeProTips.csv',
   'ScenarioDrills.csv',
 ];
+
+/// This app's private cache folder (created on first use).
+Future<Directory> _cacheDir() async {
+  final docs = await getApplicationDocumentsDirectory();
+  final dir = Directory('${docs.path}/$_cacheSubfolder');
+  if (!await dir.exists()) {
+    await dir.create(recursive: true);
+  }
+  return dir;
+}
 
 // ─────────────────────────────────────────────────────────────────
 // CSV UPDATER
@@ -78,7 +102,7 @@ class CsvUpdater {
 
       if (response.statusCode != 200) return false;
 
-      final dir = await getApplicationDocumentsDirectory();
+      final dir = await _cacheDir();
       final file = File('${dir.path}/$fileName');
       await file.writeAsString(response.body, encoding: utf8);
       debugPrint('CSV updated: $fileName');
@@ -91,7 +115,7 @@ class CsvUpdater {
 
   static Future<Map<String, dynamic>> _loadLocalVersion() async {
     try {
-      final dir = await getApplicationDocumentsDirectory();
+      final dir = await _cacheDir();
       final file = File('${dir.path}/csv_version.json');
       if (!await file.exists()) return {};
       final content = await file.readAsString();
@@ -103,7 +127,7 @@ class CsvUpdater {
 
   static Future<void> _saveLocalVersion(Map<String, dynamic> version) async {
     try {
-      final dir = await getApplicationDocumentsDirectory();
+      final dir = await _cacheDir();
       final file = File('${dir.path}/csv_version.json');
       await file.writeAsString(jsonEncode(version));
     } catch (_) {}
@@ -115,7 +139,7 @@ class CsvUpdater {
 // ─────────────────────────────────────────────────────────────────
 Future<List<String>> readCsvLines(String fileName) async {
   try {
-    final dir = await getApplicationDocumentsDirectory();
+    final dir = await _cacheDir();
     final file = File('${dir.path}/$fileName');
     if (await file.exists()) {
       final content = await file.readAsString(encoding: utf8);

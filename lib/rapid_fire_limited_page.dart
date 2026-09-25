@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'dart:math';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide debugPrint;
 import 'package:url_launcher/url_launcher.dart';
 import 'constants.dart';
 import 'csv_loader.dart';
@@ -44,6 +44,15 @@ import 'fsme_popup.dart';
 /// Reuses Español's own established proctor-finder link
 /// (servsafe.com/Instructors-Proctors, per about_proctors_page.dart)
 /// rather than Manager's foodsafetymadeeasy.com one.
+///
+/// CATEGORY MATCHING (Sept 2026 fix): the three preview categories are
+/// keyed internally by their English names (colors, bank counts,
+/// analytics), but questions are matched by KEYWORD, not exact name, so
+/// the deck fills whether the question file calls the category "Time &
+/// Temperature" or "Tiempo y temperatura". Exact-name matching found
+/// zero questions in the Spanish bank, which sent users straight to the
+/// "those were your 5 free questions" screen having answered none.
+/// Everything shown on screen uses the Spanish label in [_displayNames].
 class RapidFireLimitedPage extends StatefulWidget {
   const RapidFireLimitedPage({super.key});
 
@@ -76,6 +85,24 @@ class _RapidFireLimitedPageState extends State<RapidFireLimitedPage>
     'Food Safety Management': Color(0xFFB7950B),
   };
 
+  /// Spanish on-screen names for the preview categories. Internal keys
+  /// stay English (colors, bank counts, Mixpanel) — only the text the
+  /// user reads is translated.
+  static const Map<String, String> _displayNames = {
+    'Time & Temperature': 'Tiempo y temperatura',
+    'Receiving & Storage': 'Recepción y almacenamiento',
+    'Cross-Contamination': 'Contaminación cruzada',
+  };
+
+  /// Keywords that identify each preview category in the question file,
+  /// in English OR Spanish (accents removed, lowercase). A question
+  /// belongs to the category if its category name contains any of them.
+  static const Map<String, List<String>> _categoryKeywords = {
+    'Time & Temperature': ['temperatur'],
+    'Receiving & Storage': ['receiv', 'storage', 'recep', 'almacen'],
+    'Cross-Contamination': ['cross', 'cruzad'],
+  };
+
   /// Español's own established Find-a-Proctor link (see
   /// about_proctors_page.dart) — offered on the completion screen as a
   /// neutral next step for someone who finished the free taste and
@@ -104,6 +131,11 @@ class _RapidFireLimitedPageState extends State<RapidFireLimitedPage>
   List<String> _categories = [];
   Map<String, List<QuestionModel>> _categoryDecks = {};
   Map<String, int> _categoryProgress = {};
+
+  /// The category name exactly as the question file spells it, per
+  /// internal key — used when routing into CategoryStudyPage after a
+  /// purchase, so that page finds the same questions.
+  Map<String, String> _fileCategoryNames = {};
 
   int _currentCatIndex = 0;
   bool _loaded = false;
@@ -160,6 +192,27 @@ class _RapidFireLimitedPageState extends State<RapidFireLimitedPage>
     return _categoryColors[cat] ?? _gold;
   }
 
+  /// Spanish label for an internal category key.
+  String _label(String cat) => _displayNames[cat] ?? cat;
+
+  /// Lowercase + strip Spanish accents, for keyword matching.
+  static String _normalize(String s) {
+    const from = 'áéíóúüñÁÉÍÓÚÜÑ';
+    const to = 'aeiouunAEIOUUN';
+    final buf = StringBuffer();
+    for (final ch in s.split('')) {
+      final i = from.indexOf(ch);
+      buf.write(i >= 0 ? to[i] : ch);
+    }
+    return buf.toString().toLowerCase();
+  }
+
+  static bool _matchesCategory(String fileCategory, String key) {
+    final norm = _normalize(fileCategory);
+    final keywords = _categoryKeywords[key] ?? [_normalize(key)];
+    return keywords.any(norm.contains);
+  }
+
   @override
   void initState() {
     super.initState();
@@ -197,15 +250,25 @@ class _RapidFireLimitedPageState extends State<RapidFireLimitedPage>
     final all = await QuestionLoader.loadAll(shuffle: false);
     final decks = <String, List<QuestionModel>>{};
     final progress = <String, int>{};
+    final fileNames = <String, String>{};
 
     for (final cat in weakest) {
       final questions =
-          all
-              .where((q) => q.category.toLowerCase() == cat.toLowerCase())
-              .toList()
+          all.where((q) => _matchesCategory(q.category, cat)).toList()
             ..shuffle();
       decks[cat] = questions.take(_questionsPerCategory).toList();
       progress[cat] = 0;
+      if (questions.isNotEmpty) fileNames[cat] = questions.first.category;
+    }
+
+    // If a preview category still comes up empty, log what the question
+    // file actually calls its categories so the keywords can be fixed.
+    if (decks.values.any((d) => d.isEmpty)) {
+      final found = all.map((q) => q.category).toSet().join(' | ');
+      debugPrint(
+        'RapidFireLimited: empty preview deck. '
+        'Loaded ${all.length} questions; categories in file: $found',
+      );
     }
 
     if (!mounted) return;
@@ -213,6 +276,7 @@ class _RapidFireLimitedPageState extends State<RapidFireLimitedPage>
       _categories = weakest;
       _categoryDecks = decks;
       _categoryProgress = progress;
+      _fileCategoryNames = fileNames;
       _loaded = true;
     });
 
@@ -373,11 +437,7 @@ class _RapidFireLimitedPageState extends State<RapidFireLimitedPage>
 
     MixpanelService.instance.track(
       'SpOn_Purchase',
-      properties: {
-        'app_name': 'ES',
-        'source': source,
-        'price': '\$4.99',
-      },
+      properties: {'app_name': 'ES', 'source': source, 'price': '\$4.99'},
     );
 
     final result = await IAPService.instance.buySevenDay();
@@ -385,10 +445,14 @@ class _RapidFireLimitedPageState extends State<RapidFireLimitedPage>
     setState(() => _purchasing = false);
 
     if (result == IAPResult.success) {
+      // Route with the category name as the question file spells it, so
+      // CategoryStudyPage finds the same questions.
+      final first = _topCategories.first;
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
-          builder: (_) => CategoryStudyPage(category: _topCategories.first),
+          builder: (_) =>
+              CategoryStudyPage(category: _fileCategoryNames[first] ?? first),
         ),
         (_) => false,
       );
@@ -443,7 +507,7 @@ class _RapidFireLimitedPageState extends State<RapidFireLimitedPage>
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                cat,
+                _label(cat),
                 style: TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.w600,
@@ -674,7 +738,7 @@ class _RapidFireLimitedPageState extends State<RapidFireLimitedPage>
 
           Text(
             'Esas fueron tus $_questionsPerCategory preguntas gratis\nen '
-            '$cat.',
+            '${_label(cat)}.',
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 18,
