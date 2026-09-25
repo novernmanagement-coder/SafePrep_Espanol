@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart'
+    show defaultTargetPlatform, TargetPlatform;
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'app_state.dart';
 import 'app_state_persistence.dart';
