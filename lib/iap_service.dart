@@ -7,11 +7,25 @@ import 'mixpanel_service.dart';
 
 // ─────────────────────────────────────────────────────────────────
 // IDs de producto — deben coincidir exactamente con App Store Connect
+// (iOS) y Play Console (Android).
+//
+// Google Play NO permite mayúsculas en los IDs de producto, así que
+// Android usa sus propios IDs en minúsculas (mismo producto, distinto
+// ID por tienda). Los IDs de iOS ya están en vivo — no cambiarlos.
+// defaultTargetPlatform (de flutter/foundation, vía material) en vez de
+// dart:io, igual que en SafePrep Tax.
 // ─────────────────────────────────────────────────────────────────
-const String kProductSevenDay = 'SafePrepEspanolUnlock1Week'; // $4.99 — 7 días
-const String kProductFourteenDay =
-    'SafePrepEspanolUnlock2Week'; // $8.99 — 14 días
-const String kProductUnlockApp = 'SafePrepEspanolUnlock'; // $9.99 — vitalicio
+final bool _isAndroid = defaultTargetPlatform == TargetPlatform.android;
+
+final String kProductSevenDay = _isAndroid
+    ? 'android_es_sevenday'
+    : 'SafePrepEspanolUnlock1Week'; // $4.99 — 7 días
+final String kProductFourteenDay = _isAndroid
+    ? 'android_es_fourteenday'
+    : 'SafePrepEspanolUnlock2Week'; // $8.99 — 14 días
+final String kProductUnlockApp = _isAndroid
+    ? 'android_es_unlock'
+    : 'SafePrepEspanolUnlock'; // $9.99 — vitalicio
 
 // Cuánto tiempo esperará una llamada buy* a que StoreKit resuelva
 // (comprado, cancelado o con error) antes de rendirse y devolver
@@ -81,17 +95,15 @@ class IAPService {
       return;
     }
 
+    // if/else en vez de switch: los IDs ya no son constantes de
+    // compilación (dependen de la plataforma), y `case` las exige.
     for (final p in response.productDetails) {
-      switch (p.id) {
-        case kProductSevenDay:
-          _sevenDayProduct = p;
-          break;
-        case kProductFourteenDay:
-          _fourteenDayProduct = p;
-          break;
-        case kProductUnlockApp:
-          _unlockProduct = p;
-          break;
+      if (p.id == kProductSevenDay) {
+        _sevenDayProduct = p;
+      } else if (p.id == kProductFourteenDay) {
+        _fourteenDayProduct = p;
+      } else if (p.id == kProductUnlockApp) {
+        _unlockProduct = p;
       }
     }
 
@@ -181,16 +193,12 @@ class IAPService {
     state.hasUnlockedApp = true;
     state.purchaseDate = DateTime.now();
 
-    switch (purchase.productID) {
-      case kProductSevenDay:
-        state.purchaseType = PurchaseType.sevenDay;
-        break;
-      case kProductFourteenDay:
-        state.purchaseType = PurchaseType.fourteenDay;
-        break;
-      case kProductUnlockApp:
-        state.purchaseType = PurchaseType.lifetime;
-        break;
+    if (purchase.productID == kProductSevenDay) {
+      state.purchaseType = PurchaseType.sevenDay;
+    } else if (purchase.productID == kProductFourteenDay) {
+      state.purchaseType = PurchaseType.fourteenDay;
+    } else if (purchase.productID == kProductUnlockApp) {
+      state.purchaseType = PurchaseType.lifetime;
     }
 
     await AppStatePersistence.save();
@@ -204,9 +212,7 @@ class IAPService {
   // Envía la solicitud, luego ESPERA a que _onPurchaseUpdate la
   // resuelva de verdad (success / canceled / error) en vez de
   // regresar apenas se solicita la hoja del App Store.
-  Future<IAPResult> _purchase(
-    ProductDetails? Function() getProduct,
-  ) async {
+  Future<IAPResult> _purchase(ProductDetails? Function() getProduct) async {
     if (!_available) return IAPResult.storeUnavailable;
 
     var product = getProduct();
